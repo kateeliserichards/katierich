@@ -45,6 +45,9 @@ export default function Hero() {
   return (
     <section id="home" ref={rootRef} className="relative min-h-screen overflow-hidden">
       {/* HLS background video */}
+      {/* Branded fallback behind the video — if the clip can't load, this
+          dark radial gradient shows instead of a flat/broken black box. */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,hsl(var(--surface)),hsl(var(--bg))_70%)]" />
       <video
         ref={videoRef}
         autoPlay

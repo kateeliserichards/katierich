@@ -10,7 +10,21 @@
 // helper manually: `npm run scrape` (see scripts/scrape-listings.ts).
 //
 // Domain listing URL pattern: https://www.domain.com.au/{slugified-title}-{id}
+//
+// IMAGES: each listing uses a LOCAL image in src/assets/listings/. The files
+// committed today are on-brand placeholders ("<Suburb>" + price + "Photo
+// coming soon"). To use a real photo, just replace the file at the same path
+// (e.g. src/assets/listings/lakelands.jpg) — no code change needed. Easiest
+// way: GitHub → src/assets/listings/ → "Add file" → "Upload files".
 // ─────────────────────────────────────────────────────────────────────────
+
+// Local listing images (Vite bundles these and returns the final URL string).
+import lakelandsImg from "../assets/listings/lakelands.jpg";
+import brabhamImg from "../assets/listings/brabham.jpg";
+import piaraWatersImg from "../assets/listings/piara-waters.jpg";
+import hilbertImg from "../assets/listings/hilbert.jpg";
+import baldivisImg from "../assets/listings/baldivis.jpg";
+import wannerooImg from "../assets/listings/wanneroo.jpg";
 
 export interface Listing {
   id: string; // Domain numeric id, e.g. "2020867870"
@@ -38,20 +52,6 @@ function domainUrl(title: string, id: string): string {
   return `https://www.domain.com.au/${slugify(title)}-${id}`;
 }
 
-// Local placeholder imagery (Perth new-home feel). Swap `image` for real
-// listing photos any time, or let the scraper repopulate this file.
-const heroImg = (seed: string) =>
-  `https://images.unsplash.com/${seed}?auto=format&fit=crop&w=1200&q=80`;
-
-const seeds = [
-  "photo-1568605114967-8130f3a36994", // modern house exterior
-  "photo-1570129477492-45c003edd2be", // contemporary home
-  "photo-1512917774080-9991f1c4c750", // suburban build
-  "photo-1600585154340-be6161a56a0c", // bright living
-  "photo-1600596542815-ffad4c1539a9", // facade
-  "photo-1605276374104-dee2a0ed3cd6", // new build
-];
-
 export const listings: Listing[] = [
   {
     id: "2020867870",
@@ -61,7 +61,7 @@ export const listings: Listing[] = [
     beds: 3,
     baths: 2,
     parking: 1,
-    image: heroImg(seeds[0]),
+    image: lakelandsImg,
     url: domainUrl("TBC Lakelands Estate, LAKELANDS WA 6180", "2020867870"),
   },
   {
@@ -72,7 +72,7 @@ export const listings: Listing[] = [
     beds: 3,
     baths: 2,
     parking: 1,
-    image: heroImg(seeds[1]),
+    image: brabhamImg,
     url: domainUrl("TBC Brabham Ave, BRABHAM WA 6055", "2020867861"),
   },
   {
@@ -83,7 +83,7 @@ export const listings: Listing[] = [
     beds: 4,
     baths: 2,
     parking: 2,
-    image: heroImg(seeds[2]),
+    image: piaraWatersImg,
     url: domainUrl("TBC Multan Loop, PIARA WATERS WA 6112", "2020865729"),
   },
   {
@@ -94,7 +94,7 @@ export const listings: Listing[] = [
     beds: 3,
     baths: 2,
     parking: 1,
-    image: heroImg(seeds[3]),
+    image: hilbertImg,
     url: domainUrl("TBC Newmarket Dr, HILBERT WA 6112", "2020865691"),
   },
   {
@@ -105,7 +105,7 @@ export const listings: Listing[] = [
     beds: 3,
     baths: 2,
     parking: 1,
-    image: heroImg(seeds[4]),
+    image: baldivisImg,
     url: domainUrl("TBC Delta Rd, BALDIVIS WA 6171", "2020865681"),
   },
   {
@@ -116,7 +116,7 @@ export const listings: Listing[] = [
     beds: 3,
     baths: 2,
     parking: 1,
-    image: heroImg(seeds[5]),
+    image: wannerooImg,
     url: domainUrl("TBC Saponara Dr, WANNEROO WA 6065", "2020865659"),
   },
 ];
