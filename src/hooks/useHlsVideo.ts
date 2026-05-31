@@ -2,11 +2,14 @@ import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 
 /**
- * Attach an HLS (.m3u8) source to a <video> element, using hls.js where the
- * browser can't play HLS natively (Safari can; most others need hls.js).
+ * Attach a background video source to a <video> element.
  *
- * Fails quietly — if the stream can't load, the element just shows its
- * poster / background colour, which is fine behind the dark overlays.
+ * - Plain files (.mp4 / .webm): set directly as the source.
+ * - HLS streams (.m3u8): played natively where supported (Safari), otherwise
+ *   via hls.js.
+ *
+ * Fails quietly — if the source can't load, the element shows nothing and the
+ * branded gradient behind it (see Hero/Footer) shows through instead.
  */
 export function useHlsVideo(src: string) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -16,8 +19,12 @@ export function useHlsVideo(src: string) {
     if (!video) return;
 
     let hls: Hls | undefined;
+    const isHls = src.endsWith(".m3u8");
 
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    if (!isHls) {
+      // Plain video file (e.g. /hero.mp4)
+      video.src = src;
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = src;
     } else if (Hls.isSupported()) {
       hls = new Hls({ enableWorker: true });
@@ -33,17 +40,17 @@ export function useHlsVideo(src: string) {
   return ref;
 }
 
-// Placeholder background stream.
+// Background video source for the hero + footer.
 //
-// TODO: swap in a real Perth homes/build clip. Recommended look: a slow,
-// MUTED, golden-hour drone glide over a modern Perth home or new estate
-// (10–30s, loops cleanly). It sits under a dark overlay, so it reads as
-// mood/texture rather than a feature. Two ways to use a real clip:
-//   1. HLS (.m3u8) — best for streaming; set the URL here.
-//   2. A plain .mp4 in src/assets — import it and pass that URL instead;
-//      the <video> tag will play it directly (the hook simply no-ops for
-//      non-HLS sources).
-// If the source can't load, the section falls back to a branded dark
-// gradient (see Hero/Footer), so an empty video never looks broken.
-export const HERO_VIDEO_SRC =
-  "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+// DEFAULT: a plain MP4 served from /public — upload your clip as
+// `public/hero.mp4` and it appears automatically (no code change). If the file
+// isn't there yet, the video just fails to load and the branded dark gradient
+// behind it shows instead, so the section never looks broken.
+//
+// Recommended clip: a slow, MUTED, golden-hour drone glide over a modern Perth
+// home or new estate (10–30s, loops cleanly). It sits under a dark overlay, so
+// it reads as mood/texture rather than a feature.
+//
+// Prefer streaming HLS instead? Point this at a .m3u8 URL and the hook will use
+// hls.js automatically.
+export const HERO_VIDEO_SRC = "/hero.mp4";
