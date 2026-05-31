@@ -5,8 +5,7 @@ export const SITE = {
   domain: "katierich.com.au",
   instagram: "https://www.instagram.com/katierichhomes",
   instagramHandle: "@katierichhomes",
-  // TODO: business email — swap in the real address once confirmed.
-  email: "hello@katierich.com.au",
+  email: "kate@newhomematchmaker.com.au",
 };
 
 // New Home Matchmaker (the business Kate sells for).

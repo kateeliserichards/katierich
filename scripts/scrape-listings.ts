@@ -37,7 +37,7 @@ const AGENT_URL =
 
 // A polite, identifiable User-Agent. Run sparingly.
 const USER_AGENT =
-  "KatieRichHomes-listings-refresh/1.0 (personal use by the listing agent; contact: hello@katierich.com.au)";
+  "KatieRichHomes-listings-refresh/1.0 (personal use by the listing agent; contact: kate@newhomematchmaker.com.au)";
 
 const DELAY_MS = 2500;
 
