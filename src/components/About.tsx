@@ -1,11 +1,35 @@
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import kate from "../assets/kate.jpg";
 
 export default function About() {
   return (
     <section id="about" className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div className="grid items-start gap-12 md:grid-cols-[1fr_1.2fr]">
-        <SectionHeading eyebrow="Who you're working with" title="About Kate" />
+      <SectionHeading
+        eyebrow="Who you're working with"
+        title="About Kate"
+        className="mb-12"
+      />
+
+      <div className="grid items-center gap-12 md:grid-cols-[auto_1fr]">
+        {/* Circular headshot with the red gradient ring (echoes the logo ring) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mx-auto md:mx-0"
+        >
+          <div className="accent-gradient h-48 w-48 rounded-full p-[3px] sm:h-56 sm:w-56">
+            <div className="h-full w-full overflow-hidden rounded-full bg-bg">
+              <img
+                src={kate}
+                alt="Kate Richards"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
